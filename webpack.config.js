@@ -1,16 +1,29 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './client/index.jsx',
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   mode: process.env.NODE_ENV,
   devServer: {
-    publicPath: '/dist/',
+    host: 'localhost',
+    port: 8080,
+    // Match the output path
+    contentBase: path.resolve(__dirname, 'dist'),
+    // Enable HMR on the devServer
+    hot: true,
+    // Match the output 'publicPath'
+    publicPath: '/',
+    // fallback to the root for other urls
+    historyApiFallback: true,
+
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:3000',
+      secure: false
     }
   },
   module: {
@@ -25,7 +38,7 @@ module.exports = {
         },
       },
       {
-        test: /scss$/,
+        test: /s?css$/,
         exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
@@ -42,15 +55,22 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "\[path\]\[name\].\[hash\].\[ext\]",
           },
-        ],
+        },
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './client/index.html',
+    }),
+  ],
   resolve: {
+    // Enable importing JS / JSX files without specifying their extension
     extensions: ['.js', '.jsx'],
   },
 };

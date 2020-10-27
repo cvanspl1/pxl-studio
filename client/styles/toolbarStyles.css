@@ -1,0 +1,109 @@
+#toolbar {
+  border: solid #D3D3D3 0.16vw;
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 20;
+  width: 100%;
+  height: 100%;
+  background-color: #262626;
+  transition: all 150ms ease;
+  display: grid;
+  grid-template-rows: 1fr 1.25fr repeat(8, 1fr) 4.75fr;
+  z-index: 999;
+}
+
+#toolbar:hover {
+  width: 100%;
+}
+
+#color1 {
+  position: absolute;
+  display: block;
+  background-color: black;
+  border: solid #D3D3D3 0.16vw;
+  height: 2vw;
+  width: 2vw;
+  left: -1.35vw;
+  top: 0vw;
+  z-index: 2;
+  box-shadow: 0.1vw 0.1vw 0.16vw #262626;
+  border-radius: 0.1vw;
+}
+
+#color2 {
+  position: absolute;
+  display: block;
+  background-color: white;
+  border: solid #D3D3D3 0.16vw;
+  height: 2vw;
+  width: 2vw;
+  left: -0.15vw;
+  top: 1.1vw;
+  border-radius: 0.1vw;
+  z-index: 1;
+}
+
+#swap {
+  width: 1vw;
+  height: 1vw;
+}
+
+#swap-btn {
+  position: absolute;
+  width: 2vw;
+  height: 2vw;
+  background: none;
+  border: none;
+  top: 1.8vw;
+  left: -1.8vw
+}
+
+.color-selector {
+  z-index: 2;
+  visibility: hidden;
+}
+
+.color-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#file-menu {
+  display: block;
+  position: relative;
+  border: none;
+}
+
+#pxl {
+  position: absolute;
+  color: #D3D3D3;
+  text-align: center;
+  font-size: 1.6vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  left: -1.62vw;
+  top: -0.1vw;
+}
+
+#studio {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: #D3D3D3;
+  text-align: center;
+  font-size: 0.6vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  top: 1.4vw;
+  left: -0.3vw;
+}
+
+#tool-wrapper {
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+}
