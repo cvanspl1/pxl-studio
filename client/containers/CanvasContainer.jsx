@@ -27,29 +27,83 @@ const mapStateToProps = (state) => ({
   mousePosition: state.canvas.mousePosition,
   activeLayer: state.canvas.activeLayer,
   layers: state.canvas.layers,
+  leftMouseDown: state.canvas.leftMouseDown,
+  rightMouseDown: state.canvas.rightMouseDown,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateMousePosition: (newPosition) => dispatch(actions.updateMousePosition(newPosition)),
+  mouseDown: (mouseBtn) => dispatch(actions.mouseDown(mouseBtn)),
+  mouseUp: (mouseBtn) => dispatch(actions.mouseUp(mouseBtn)),
 });
 
 class CanvasContainer extends Component {
   constructor(props) {
     super(props);
-    //this.USER_INTERFACE = ();
+    this.UI = null;
+    this.LAYER = null;
+  }
+
+  componentDidUpdate() {
+    const {
+      primaryColor,
+      secondaryColor,
+      leftMouseDown,
+      rightMouseDown,
+      mousePosition,
+    } = this.props;
+    const CONTEXT = this.LAYER.getContext('2d');
+    if (leftMouseDown) {
+      console.log('DRAWING LEFT');
+      CONTEXT.fillStyle = primaryColor;
+      CONTEXT.fillRect(mousePosition.x, mousePosition.y, 1, 1);
+    } else if (rightMouseDown) {
+      console.log('DRAWING RIGHT');
+      CONTEXT.fillStyle = secondaryColor;
+      CONTEXT.fillRect(mousePosition.x, mousePosition.y, 1, 1);
+    }
   }
 
   render() {
+    const {
+      primaryColor,
+      secondaryColor,
+      currentMode,
+      mousePosition,
+      leftMouseDown,
+      rightMouseDown,
+      updateMousePosition,
+      mouseDown,
+      mouseUp,
+    } = this.props;
+
+    this.UI = (
+      <CanvasUI
+        primaryColor={primaryColor}
+        secondaryColor={secondaryColor}
+        currentMode={currentMode}
+        mousePosition={mousePosition}
+        leftMouseDown={leftMouseDown}
+        rightMouseDown={rightMouseDown}
+        updateMousePosition={updateMousePosition}
+        handleMouseDown={mouseDown}
+        handleMouseUp={mouseUp}
+      />
+    );
+
+    const PAINT = (
+      <canvas
+        id="paint-canvas"
+        width="32"
+        height="32"
+        ref={(input) => (this.LAYER = input)}
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      />
+    );
     return (
       <div id="canvas-container">
-        <CanvasUI
-        primaryColor={this.props.primaryColor}
-        secondaryColor={this.props.secondaryColor}
-        currentMode={this.props.currentMode}
-        mousePosition={this.props.mousePosition}
-        updateMousePosition={this.props.updateMousePosition}
-        />
-        <canvas id="paint-canvas" width="32" height="32" style={{ backgroundImage: `url(${backgroundImage})` }} />
+        {this.UI}
+        {PAINT}
       </div>
     );
   }

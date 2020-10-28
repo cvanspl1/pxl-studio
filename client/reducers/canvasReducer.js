@@ -17,12 +17,21 @@ const initialState = {
   secondaryColor: 'white',
   currentMode: types.PEN_MODE,
   mousePosition: { x: -Infinity, y: -Infinity },
+  leftMouseDown: false,
+  rightMouseDown: false,
   activeLayer: -1,
   layers: [],
 };
 
 const canvasReducer = (state = initialState, action) => {
-  let { primaryColor, secondaryColor, mousePosition, currentMode } = state;
+  let {
+    primaryColor,
+    secondaryColor,
+    currentMode,
+    mousePosition,
+    leftMouseDown,
+    rightMouseDown,
+  } = state;
 
   switch (action.type) {
     case types.UPDATE_PRIMARY_COLOR:
@@ -65,6 +74,34 @@ const canvasReducer = (state = initialState, action) => {
       return {
         ...state,
         currentMode,
+      };
+
+    case types.MOUSE_DOWN:
+      if (action.payload === 0) {
+        console.log('Left mouse is down');
+        leftMouseDown = true;
+      } else {
+        console.log('Right mouse is down');
+        rightMouseDown = true;
+      }
+      return {
+        ...state,
+        leftMouseDown,
+        rightMouseDown,
+      };
+
+    case types.MOUSE_UP:
+      if (action.payload === 0) {
+        console.log('Left mouse is up');
+        leftMouseDown = false;
+      } else {
+        console.log('Right mouse is up');
+        rightMouseDown = false;
+      }
+      return {
+        ...state,
+        leftMouseDown,
+        rightMouseDown,
       };
 
     default:

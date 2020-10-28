@@ -37,3 +37,13 @@ export const updateMode = (newMode) => ({
   type: types.UPDATE_MODE,
   payload: newMode,
 });
+
+export const mouseDown = (mouseBtn) => ({
+  type: types.MOUSE_DOWN,
+  payload: mouseBtn,
+});
+
+export const mouseUp = (mouseBtn) => ({
+  type: types.MOUSE_UP,
+  payload: mouseBtn,
+});

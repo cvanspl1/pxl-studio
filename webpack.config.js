@@ -23,8 +23,8 @@ module.exports = {
 
     proxy: {
       '/api': 'http://localhost:3000',
-      secure: false
-    }
+      secure: false,
+    },
   },
   module: {
     rules: [
@@ -56,9 +56,9 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: {
-          loader: "file-loader",
+          loader: 'file-loader',
           options: {
-            name: "\[path\]\[name\].\[hash\].\[ext\]",
+            name: '[path][name].[hash].[ext]',
           },
         },
       },

@@ -55,6 +55,7 @@
 #paint-canvas {
   position: absolute;
   border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
   background-size: 12.5%;
   width: 90vh;
   height: 90vh;
@@ -66,12 +67,56 @@
 
 #palette-bar {
   border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
   grid-column: 3 / span 1;
   grid-row: 1 / span 20;
   width: 100%;
   height: 100%;
   background-color: #262626;
   z-index: 999;
+}
+
+#preview-pane {
+  width: 80%;
+  height: 20%;
+  background-color:#4d4d4d;
+  border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 1vw;
+  margin-top: 0.25vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.palettebar-label {
+  padding-left: 10%;
+  text-align: left;
+  margin: 0;
+  border: none;
+  color: #D3D3D3;
+  font-size: 1vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin-top: 0.35vw;
+  display: block;
+}
+
+#preview-canvas {
+  position: absolute;
+  border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
+  background-size: 12.5%;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
 }
 
 .wrapper {
@@ -96,4 +141,37 @@
 .label:hover {
   transform: scale(1.1);
   transition: all 150ms ease;
+}
+
+#palettes {
+  width: 80%;
+  height: 35%;
+  background-color:#333333;
+  border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0.25vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#layers {
+  width: 80%;
+  height: 28%;
+  background-color:#333333;
+  border: solid #D3D3D3 0.16vw;
+  border-radius: 0.1vw;
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 0.25vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
