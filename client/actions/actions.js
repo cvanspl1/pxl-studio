@@ -47,3 +47,28 @@ export const mouseUp = (mouseBtn) => ({
   type: types.MOUSE_UP,
   payload: mouseBtn,
 });
+
+export const updateLayerState = (newState) => ({
+  type: types.UPDATE_LAYER_STATE,
+  payload: newState,
+});
+
+export const updateProjectState = (newState) => ({
+  type: types.UPDATE_PROJECT_STATE,
+  payload: newState,
+});
+
+export const updateImageWidth = (newWidth) => ({
+  type: types.UPDATE_IMAGE_WIDTH,
+  payload: newWidth,
+});
+
+export const updateImageHeight = (newHeight) => ({
+  type: types.UPDATE_IMAGE_HEIGHT,
+  payload: newHeight,
+});
+
+export const updateImageZoom = (newZoom) => ({
+  type: types.UPDATE_IMAGE_ZOOM,
+  payload: newZoom,
+});

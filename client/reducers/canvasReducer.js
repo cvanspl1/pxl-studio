@@ -10,9 +10,14 @@
  */
 
 import * as types from '../constants/actionTypes';
+import * as projectStates from '../constants/projectStates';
 
 // Initial canvas state when the app loads
 const initialState = {
+  projectState: projectStates.UNINITIALIZED,
+  imageWidth: 0,
+  imageHeight: 0,
+  imageZoom: 1,
   primaryColor: 'black',
   secondaryColor: 'white',
   currentMode: types.PEN_MODE,
@@ -21,6 +26,7 @@ const initialState = {
   rightMouseDown: false,
   activeLayer: -1,
   layers: [],
+  layerState: null,
 };
 
 const canvasReducer = (state = initialState, action) => {
@@ -31,6 +37,11 @@ const canvasReducer = (state = initialState, action) => {
     mousePosition,
     leftMouseDown,
     rightMouseDown,
+    layerState,
+    projectState,
+    imageWidth,
+    imageHeight,
+    imageZoom,
   } = state;
 
   switch (action.type) {
@@ -102,6 +113,46 @@ const canvasReducer = (state = initialState, action) => {
         ...state,
         leftMouseDown,
         rightMouseDown,
+      };
+
+    case types.UPDATE_LAYER_STATE:
+      layerState = action.payload;
+      console.log('Layer state is now ', layerState);
+      return {
+        ...state,
+        layerState,
+      };
+
+    case types.UPDATE_PROJECT_STATE:
+      projectState = action.payload;
+      console.log('Project state is now ', projectState);
+      return {
+        ...state,
+        projectState,
+      };
+
+    case types.UPDATE_IMAGE_WIDTH:
+      imageWidth = action.payload;
+      console.log('Image width is now ', imageWidth);
+      return {
+        ...state,
+        imageWidth,
+      };
+
+    case types.UPDATE_IMAGE_HEIGHT:
+      imageHeight = action.payload;
+      console.log('Image height is now ', imageHeight);
+      return {
+        ...state,
+        imageHeight,
+      };
+
+    case types.UPDATE_IMAGE_ZOOM:
+      imageZoom = action.payload;
+      console.log('Image zoom is now ', imageZoom);
+      return {
+        ...state,
+        imageZoom,
       };
 
     default:

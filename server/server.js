@@ -22,9 +22,6 @@ app.use('/api', apiRouter);
 // respond with main app
 app.get('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/index.html')));
 
-// respond with main app
-app.get('/icons/canvasBG.jpg', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/icons/canvasBG.jpg')));
-
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.sendStatus(404));
 
