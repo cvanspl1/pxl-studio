@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+body {
+  overflow: hidden;
+}
+
 #main-layout {
   display: grid;
   grid-gap: 0;
@@ -26,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  overflow: hidden;
 }
 
 #canvas-ui {
@@ -146,7 +150,7 @@
 #palettes {
   width: 80%;
   height: 35%;
-  background-color:#333333;
+  background-color:#D3D3D3;
   border: solid #D3D3D3 0.16vw;
   border-radius: 0.1vw;
   padding-left: 0;
@@ -155,9 +159,24 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  justify-items: center;
+
+}
+
+.palette-icon {
+  position: relative;
+  box-sizing: content-box;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.palette-icon:hover {
+  transform: scale(1.3);
+  transition: all 150ms ease;
+  z-index: 1;
 }
 
 #layers {

@@ -18,12 +18,9 @@ class CanvasUI extends Component {
     this.UI = null;
     this.CONTEXT = null;
     this.uiBounds = null;
-    this.xMod = null;
-    this.yMod = null;
     this.render = this.render.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
-    this.handleResize = this.handleResize.bind(this);
     this.drawOnCanvas = this.drawOnCanvas.bind(this);
     this.eraseCanvas = this.eraseCanvas.bind(this);
   }
@@ -32,7 +29,6 @@ class CanvasUI extends Component {
     const { imageWidth, imageHeight } = this.props;
     this.CONTEXT = this.UI.getContext('2d');
     this.CONTEXT.fillStyle = this.props.primaryColor;
-    window.addEventListener('resize', this.handleResize);
 
     // Disable right click menu on canvas
     this.UI.addEventListener(
@@ -91,21 +87,24 @@ class CanvasUI extends Component {
     this.CONTEXT.clearRect(0, 0, this.uiBounds.width, this.uiBounds.height);
   }
 
-  handleResize() {
-    const { imageWidth, imageHeight } = this.props;
-    this.uiBounds = this.UI.getBoundingClientRect();
-    this.xMod = imageWidth / this.uiBounds.width;
-    this.yMod = imageHeight / this.uiBounds.height;
-  }
-
   render() {
-    const { handleMouseDown, handleMouseUp, imageWidth, imageHeight, imageZoom } = this.props;
+    const {
+      handleMouseDown,
+      handleMouseUp,
+      imageWidth,
+      imageHeight,
+      imageZoom,
+      zoomInCanvas,
+      zoomOutCanvas,
+    } = this.props;
     const USER_INTERFACE = (
       <canvas
         id="user-interface"
         width={imageWidth}
         height={imageHeight}
         ref={(input) => (this.UI = input)}
+        onClick={zoomInCanvas}
+        onContextMenu={zoomOutCanvas}
         onMouseMove={this.handleMouseMove}
         onMouseOut={this.handleMouseOut}
         onMouseEnter={this.handleMouseMove}

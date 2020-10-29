@@ -52,18 +52,15 @@ class CanvasContainer extends Component {
     this.CONTAINER = null;
     this.drawOnCanvas = this.drawOnCanvas.bind(this);
     this.eraseCanvas = this.eraseCanvas.bind(this);
+    this.zoomInCanvas = this.zoomInCanvas.bind(this);
+    this.zoomOutCanvas = this.zoomOutCanvas.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
   componentDidMount() {
-    const { updateMode, imageWidth, imageHeight, updateImageZoom } = this.props;
-    const OPTIMAL_ZOOM = Math.max(
-      Math.min(
-        Math.floor(this.CONTAINER.clientWidth / imageWidth),
-        Math.floor(this.CONTAINER.clientHeight / imageHeight)
-      ),
-      1
-    );
-    updateImageZoom(OPTIMAL_ZOOM);
+    const { updateMode } = this.props;
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
     document.addEventListener('keypress', (event) => {
       switch (event.key) {
         case 'd':
@@ -75,6 +72,9 @@ class CanvasContainer extends Component {
         case 'f':
           updateMode(types.PAINT_MODE);
           break;
+        case 'z':
+          updateMode(types.ZOOM_MODE);
+          break;
         default:
           break;
       }
@@ -83,11 +83,32 @@ class CanvasContainer extends Component {
 
   componentDidUpdate() {
     const { currentMode, updateLayerState } = this.props;
-    if (currentMode === types.PEN_MODE) this.drawOnCanvas();
-    else if (currentMode === types.ERASER_MODE) this.eraseCanvas();
+    console.log('CURRENT MODE: ', currentMode);
+    switch (currentMode) {
+      case types.PEN_MODE:
+        this.drawOnCanvas();
+        break;
+      case types.ERASER_MODE:
+        this.eraseCanvas();
+        break;
+      default:
+        break;
+    }
     // Store the updated canvas state for display in the preview pane
     const LAYER_STATE = this.LAYER.toDataURL();
     updateLayerState(LAYER_STATE);
+  }
+
+  handleResize() {
+    const { imageWidth, imageHeight, updateImageZoom } = this.props;
+    const OPTIMAL_ZOOM = Math.max(
+      Math.min(
+        Math.floor(this.CONTAINER.clientWidth / imageWidth),
+        Math.floor(this.CONTAINER.clientHeight / imageHeight)
+      ),
+      1
+    );
+    updateImageZoom(OPTIMAL_ZOOM);
   }
 
   // Required to handle the scenario where a user clicks a single pixel
@@ -115,6 +136,22 @@ class CanvasContainer extends Component {
     // Erase on the active layer if the mouse is being clicked
     if (leftMouseDown || rightMouseDown) {
       ACTIVE_LAYER.clearRect(mousePosition.x, mousePosition.y, 1, 1);
+    }
+  }
+
+  zoomInCanvas() {
+    console.log('zooom');
+    const { currentMode, imageZoom, updateImageZoom } = this.props;
+    if (currentMode === types.ZOOM_MODE) {
+      updateImageZoom(imageZoom + 1);
+    }
+  }
+
+  zoomOutCanvas() {
+    console.log('zooom');
+    const { currentMode, imageZoom, updateImageZoom } = this.props;
+    if (currentMode === types.ZOOM_MODE) {
+      updateImageZoom(Math.max(imageZoom - 1, 1));
     }
   }
 
@@ -148,6 +185,8 @@ class CanvasContainer extends Component {
         handleMouseDown={mouseDown}
         handleMouseUp={mouseUp}
         imageZoom={imageZoom}
+        zoomInCanvas={this.zoomInCanvas}
+        zoomOutCanvas={this.zoomOutCanvas}
       />
     );
     const BG_ZOOM = Math.min(
