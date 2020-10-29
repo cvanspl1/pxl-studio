@@ -14,7 +14,7 @@ import * as projectStates from '../constants/projectStates';
 
 // Initial canvas state when the app loads
 const initialState = {
-  projectState: projectStates.UNINITIALIZED,
+  projectState: projectStates.LOGIN,
   imageWidth: 0,
   imageHeight: 0,
   imageZoom: 1,

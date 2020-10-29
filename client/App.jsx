@@ -16,6 +16,8 @@ import PaletteBarContainer from './containers/PaletteBarContainer.jsx';
 import CanvasContainer from './containers/CanvasContainer.jsx';
 import WelcomeScreen from './components/WelcomeScreen.jsx';
 import NewProjectForm from './components/NewProjectForm.jsx';
+import SignIn from './components/SignIn.jsx';
+import SignUp from './components/SignUp.jsx';
 
 import * as projectStates from './constants/projectStates';
 import * as actions from './actions/actions';
@@ -32,30 +34,36 @@ const mapDispatchToProps = (dispatch) => ({
 
 const App = (props) => {
   const { projectState, updateProjectState, updateImageWidth, updateImageHeight } = props;
-  let appBody = null;
+  let appBody = [];
   switch (projectState) {
     case projectStates.CREATING_NEW:
-      appBody = (
+      appBody = [
+        <ToolBarContainer />,
         <NewProjectForm
           updateProjectState={updateProjectState}
           updateImageWidth={updateImageWidth}
           updateImageHeight={updateImageHeight}
-        />
-      );
+        />,
+        <PaletteBarContainer />,
+      ];
       break;
     case projectStates.IN_PROGRESS:
-      appBody = <CanvasContainer />;
+      appBody = [<ToolBarContainer />, <CanvasContainer />, <PaletteBarContainer />];
+      break;
+    case projectStates.SIGNED_IN:
+      appBody = [
+        <ToolBarContainer />,
+        <WelcomeScreen updateProjectState={updateProjectState} />,
+        <PaletteBarContainer />,
+      ];
+      break;
+    case projectStates.SIGNUP:
+      appBody = [<SignUp updateProjectState={updateProjectState} />];
       break;
     default:
-      appBody = <WelcomeScreen updateProjectState={updateProjectState} />;
+      appBody = [<SignIn updateProjectState={updateProjectState} />];
   }
-  return (
-    <div id="main-layout">
-      <ToolBarContainer />
-      {appBody}
-      <PaletteBarContainer />
-    </div>
-  );
+  return <div id="main-layout">{appBody}</div>;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

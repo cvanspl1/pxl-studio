@@ -12,7 +12,7 @@
 import React from 'react';
 import * as projectStates from '../constants/projectStates';
 
-const NewProjectForm = (props) => {
+const WelcomeScreen = (props) => {
   const { updateProjectState } = props;
   return (
     <div id="canvas-container">
@@ -35,4 +35,4 @@ const NewProjectForm = (props) => {
   );
 };
 
-export default NewProjectForm;
+export default WelcomeScreen;

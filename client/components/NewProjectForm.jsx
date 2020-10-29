@@ -64,7 +64,7 @@ const NewProjectForm = (props) => {
           type="button"
           id="cancel-project-btn"
           onClick={() => {
-            updateProjectState(projectStates.UNINITIALIZED);
+            updateProjectState(projectStates.SIGNED_IN);
           }}
         >
           Cancel
