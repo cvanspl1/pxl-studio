@@ -21,6 +21,7 @@ import * as types from '../constants/actionTypes';
 
 const mapStateToProps = (state) => ({
   currentMode: state.canvas.currentMode,
+  layerState: state.canvas.layerState,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ToolBarContainer = (props) => {
+  const { layerState } = props;
   // Create pen icon
   const PEN = (
     <button type="button" id="tool-wrapper" onClick="">
@@ -172,6 +174,20 @@ const ToolBarContainer = (props) => {
     </button>
   );
 
+  const DOWNLOAD = (
+    <button type="button" id="tool-wrapper" onClick="">
+      <a href={layerState} id="tool-wrapper" download>
+        <img
+          alt="Swap primary and secondary colors"
+          className="icon"
+          id="download"
+          src={require('../icons/download.svg')}
+          fill="none"
+        />
+      </a>
+    </button>
+  );
+
   return (
     <div id="toolbar">
       <FileMenuContainer />
@@ -184,6 +200,7 @@ const ToolBarContainer = (props) => {
       {EYE_DROPPER}
       {MOVE}
       {ZOOM}
+      {DOWNLOAD}
     </div>
   );
 };
