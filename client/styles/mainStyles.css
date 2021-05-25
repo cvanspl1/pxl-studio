@@ -6,12 +6,14 @@
   padding: 0;
 }
 
+button {
+  outline: none;
+}
+
 body {
   overflow: hidden;
   background-color:#4d4d4d;
 }
-
-button { background: none transparent; border: none; }
 
 #main-layout {
   display: grid;

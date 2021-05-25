@@ -38,9 +38,9 @@ module.exports = {
         },
       },
       {
-        test: /s?css$/,
+        test: /css$/,
         exclude: /node_modules/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        loaders: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg$/,
